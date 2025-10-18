@@ -1,0 +1,3 @@
+name,email,phone,city,years_experience,title,education,languages,salary_expectation,employment_type,resume_text,source
+Aruzhan,aru@example.com,+77010000001,Almaty,2,Frontend Developer,Bachelor,ru,en,500000,full-time,"Built React apps; responsible for UI.",hh.kz
+Dias,dias@example.com,+77010000002,Astana,4,Backend Developer,Bachelor,ru,en,700000,full-time,"Python, FastAPI, Postgres, Docker. Led migration.",linkedin
