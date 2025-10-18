@@ -1,6 +1,88 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Briefcase, ChevronLeft, Send, Upload, TrendingUp, Zap, Loader2, CheckCircle, AlertTriangle, User, MessageSquare, CornerDownLeft } from 'lucide-react';
 
+function App() {
+  // State variables for data, loading status, and errors
+  const [links, setLinks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // The URL must match the Flask server address and the defined route.
+    const API_URL = 'http://127.0.0.1:5000/api/links';
+
+    const fetchLinks = async () => {
+      try {
+        // Use JavaScript's native fetch API to call the backend
+        const response = await fetch(API_URL); 
+
+        if (!response.ok) {
+          // If the server responded but with an error status (e.g., 404, 500)
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json(); 
+        setLinks(data); // Update state with the fetched links
+      } catch (e) {
+        console.error("Failed to fetch links:", e);
+        // Display a user-friendly error message
+        setError("Could not load links. Is the backend server running?");
+      } finally {
+        setLoading(false); // Stop loading regardless of success or failure
+      }
+    };
+
+    fetchLinks();
+  }, []); // [] ensures the fetch runs only once after the component mounts
+
+  // --- Conditional Rendering for UX ---
+  if (loading) {
+    return (
+      <div className="link-page-container">
+        <h1 className="page-title">Loading...</h1>
+        <p>Fetching links from the API...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="link-page-container">
+        <h1 className="page-title">Error</h1>
+        <p className="error">{error}</p>
+      </div>
+    );
+  }
+
+  // --- Render Fetched Links ---
+  return (
+    <div className="link-page-container">
+      <header>
+        <h1 className="page-title">My Dynamic Links</h1>
+      </header>
+      
+      <main className="link-list">
+        {/* Map over the fetched 'links' array to render the buttons */}
+        {links.map((link) => (
+          <a 
+            key={link.id} // Essential for React lists
+            className="link-button" 
+            href={link.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            {link.name}
+          </a>
+        ))}
+      </main>
+      
+      <footer>
+        <p className="page-footer">Content served dynamically by Python/Flask API</p>
+      </footer>
+    </div>
+  );
+}
+
 // --- Environment Variables & Constants ---
 // 'appId' is assigned but never used, so we remove the definition to fix the warning.
 const __app_id = process.env.REACT_APP_APP_ID || 'exanius-default-id';
