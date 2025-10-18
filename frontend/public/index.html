@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBot - Умный помощник для карьеры</title>
+    <style>
+        :root {
+            --primary: #FFA812;
+            --secondary: #21aec4;
+            --white: #ffffff;
+            --light-gray: #f5f5f7;
+            --dark-gray: #1d1d1f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background-color: var(--light-gray);
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #555;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Questionnaire Section */
+        .questionnaire-section {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            display: none;
+        }
+        
+        .questionnaire-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .questionnaire-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+        }
+        
+        .question h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 12px 20px;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background-color: #eaeaea;
+        }
+        
+        .option.selected {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            display: none;
+        }
+        
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+        
+        .upload-area.active {
+            border-color: var(--primary);
+            background-color: rgba(255, 168, 18, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        
+        .upload-area.active .upload-icon {
+            color: var(--primary);
+        }
+        
+        .upload-text {
+            margin-bottom: 20px;
+        }
+        
+        .upload-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background-color: #e69900;
+        }
+        
+        .file-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .file-info.show {
+            display: block;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #eee;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        /* Results Section */
+        .results-section {
+            padding: 100px 0;
+            display: none;
+        }
+        
+        .results-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .match-percentage {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .match-text {
+            font-size: 24px;
+            color: #666;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .result-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .result-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .result-card p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .match-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .recommendations {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        .recommendations h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .recommendation-list {
+            list-style-type: none;
+        }
+        
+        .recommendation-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .recommendation-list li:before {
+            content: "•";
+            color: var(--primary);
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .questionnaire-container, .upload-container {
+                padding: 20px;
+            }
+            
+            .options {
+                flex-direction: column;
+            }
+            
+            .option {
+                text-align: center;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <div id="root"></div>
+
+    </body>
+</html>
