@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBot - Умный помощник для карьеры</title>
+    <style>
+        :root {
+            --primary: #FFA812;
+            --secondary: #21aec4;
+            --white: #ffffff;
+            --light-gray: #f5f5f7;
+            --dark-gray: #1d1d1f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background-color: var(--light-gray);
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: #555;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Questionnaire Section */
+        .questionnaire-section {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            display: none;
+        }
+        
+        .questionnaire-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .questionnaire-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+        }
+        
+        .question h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 12px 20px;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background-color: #eaeaea;
+        }
+        
+        .option.selected {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            padding: 100px 0;
+            background-color: var(--light-gray);
+            border-radius: 30px;
+            display: none;
+        }
+        
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 15px;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+        
+        .upload-area.active {
+            border-color: var(--primary);
+            background-color: rgba(255, 168, 18, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        
+        .upload-area.active .upload-icon {
+            color: var(--primary);
+        }
+        
+        .upload-text {
+            margin-bottom: 20px;
+        }
+        
+        .upload-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background-color: #e69900;
+        }
+        
+        .file-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .file-info.show {
+            display: block;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: #eee;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        /* Results Section */
+        .results-section {
+            padding: 100px 0;
+            display: none;
+        }
+        
+        .results-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .match-percentage {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .match-text {
+            font-size: 24px;
+            color: #666;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .result-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .result-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .result-card p {
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .match-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .recommendations {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        .recommendations h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+        
+        .recommendation-list {
+            list-style-type: none;
+        }
+        
+        .recommendation-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .recommendation-list li:before {
+            content: "•";
+            color: var(--primary);
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .questionnaire-container, .upload-container {
+                padding: 20px;
+            }
+            
+            .options {
+                flex-direction: column;
+            }
+            
+            .option {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">S</div>
+                    SmartBot
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Для соискателей</a></li>
+                        <li><a href="#">Для компаний</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Умный помощник для вашей карьеры</h1>
+            <p>SmartBot анализирует ваши навыки и предпочтения, чтобы найти идеальную работу или сотрудника с максимальной вероятностью совпадения</p>
+            <div class="btn-group">
+                <button class="btn btn-primary" id="jobSeekerBtn">Я ищу работу</button>
+                <button class="btn btn-secondary" id="hrBtn">Я ищу сотрудника</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Анкета для соискателей -->
+    <section class="questionnaire-section" id="jobSeekerQuestionnaire">
+        <div class="container">
+            <div class="questionnaire-container">
+                <h2 class="questionnaire-title">Анкета соискателя</h2>
+                <form id="jobSeekerForm">
+                    <div class="question">
+                        <h3>1. Какую зарплату вы ожидаете? (руб.)</h3>
+                        <div class="input-group">
+                            <input type="number" id="desiredSalary" placeholder="Введите сумму" required>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>2. Готовы ли вы к переезду в другой город?</h3>
+                        <div class="options">
+                            <div class="option" data-value="yes">Да, готов</div>
+                            <div class="option" data-value="no">Нет, не готов</div>
+                            <div class="option" data-value="maybe">Рассмотрю предложения</div>
+                        </div>
+                        <input type="hidden" id="relocation" required>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>3. Какой формат работы предпочитаете?</h3>
+                        <div class="options">
+                            <div class="option" data-value="office">Офис</div>
+                            <div class="option" data-value="remote">Удалённо</div>
+                            <div class="option" data-value="hybrid">Гибридный</div>
+                        </div>
+                        <input type="hidden" id="workFormat" required>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>4. Какой график работы вас интересует?</h3>
+                        <div class="options">
+                            <div class="option" data-value="full">Полный день</div>
+                            <div class="option" data-value="part">Неполный день</div>
+                            <div class="option" data-value="flexible">Гибкий график</div>
+                            <div class="option" data-value="shift">Сменный график</div>
+                        </div>
+                        <input type="hidden" id="workSchedule" required>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-secondary" id="backToMainFromJobSeeker">Назад</button>
+                        <button type="submit" class="btn btn-primary">Далее →</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Анкета для компаний -->
+    <section class="questionnaire-section" id="hrQuestionnaire">
+        <div class="container">
+            <div class="questionnaire-container">
+                <h2 class="questionnaire-title">Анкета компании</h2>
+                <form id="hrForm">
+                    <div class="question">
+                        <h3>1. Какую зарплату предлагаете? (руб.)</h3>
+                        <div class="input-group">
+                            <input type="number" id="offeredSalary" placeholder="Введите сумму" required>
+                        </div>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>2. Готовы рассматривать кандидатов из других городов?</h3>
+                        <div class="options">
+                            <div class="option" data-value="yes">Да</div>
+                            <div class="option" data-value="no">Только локальные</div>
+                            <div class="option" data-value="relocation">С компенсацией переезда</div>
+                        </div>
+                        <input type="hidden" id="candidateRelocation" required>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>3. Какой формат работы предлагаете?</h3>
+                        <div class="options">
+                            <div class="option" data-value="office">Офис</div>
+                            <div class="option" data-value="remote">Удалённо</div>
+                            <div class="option" data-value="hybrid">Гибридный</div>
+                        </div>
+                        <input type="hidden" id="offeredWorkFormat" required>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>4. Какой график работы предлагаете?</h3>
+                        <div class="options">
+                            <div class="option" data-value="full">Полный день</div>
+                            <div class="option" data-value="part">Неполный день</div>
+                            <div class="option" data-value="flexible">Гибкий график</div>
+                            <div class="option" data-value="shift">Сменный график</div>
+                        </div>
+                        <input type="hidden" id="offeredWorkSchedule" required>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button type="button" class="btn btn-secondary" id="backToMainFromHR">Назад</button>
+                        <button type="submit" class="btn btn-primary">Далее →</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <section class="upload-section" id="uploadSection">
+        <div class="container">
+            <h2 class="section-title" id="uploadTitle">Загрузите ваше резюме</h2>
+            <div class="upload-container">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-text">
+                        <h3>Перетащите файл сюда</h3>
+                        <p>или нажмите для выбора файла</p>
+                    </div>
+                    <input type="file" id="fileInput" accept=".pdf,.docx,.txt" style="display: none;">
+                    <button class="upload-btn" id="selectFileBtn">Выбрать файл</button>
+                </div>
+                <div class="file-info" id="fileInfo">
+                    <p><strong>Файл:</strong> <span id="fileName">-</span></p>
+                    <p><strong>Размер:</strong> <span id="fileSize">-</span></p>
+                    <p><strong>Тип:</strong> <span id="fileType">-</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="uploadProgress"></div>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="backToQuestionnaire">Назад</button>
+                    <button class="btn btn-primary" id="analyzeBtn" style="display: none;">Найти подходящие компании</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="results-section" id="resultsSection">
+        <div class="container">
+            <div class="results-container">
+                <div class="results-header">
+                    <div class="match-percentage" id="matchPercentage">0%</div>
+                    <div class="match-text" id="matchText">Совпадение с вашими требованиями</div>
+                </div>
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Результаты будут добавлены динамически -->
+                </div>
+                
+                <div class="recommendations">
+                    <h3>Рекомендации по улучшению резюме</h3>
+                    <ul class="recommendation-list" id="recommendationsList">
+                        <!-- Рекомендации будут добавлены динамически -->
+                    </ul>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" id="backToUpload">Назад</button>
+                    <button class="btn btn-primary" id="newSearch">Новый поиск</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Основная логика приложения
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы интерфейса
+            const jobSeekerBtn = document.getElementById('jobSeekerBtn');
+            const hrBtn = document.getElementById('hrBtn');
+            const jobSeekerQuestionnaire = document.getElementById('jobSeekerQuestionnaire');
+            const hrQuestionnaire = document.getElementById('hrQuestionnaire');
+            const jobSeekerForm = document.getElementById('jobSeekerForm');
+            const hrForm = document.getElementById('hrForm');
+            const uploadSection = document.getElementById('uploadSection');
+            const uploadTitle = document.getElementById('uploadTitle');
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const selectFileBtn = document.getElementById('selectFileBtn');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const fileType = document.getElementById('fileType');
+            const uploadProgress = document.getElementById('uploadProgress');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const resultsSection = document.getElementById('resultsSection');
+            const matchPercentage = document.getElementById('matchPercentage');
+            const matchText = document.getElementById('matchText');
+            const resultsGrid = document.getElementById('resultsGrid');
+            const recommendationsList = document.getElementById('recommendationsList');
+            
+            // Кнопки навигации
+            const backToMainFromJobSeeker = document.getElementById('backToMainFromJobSeeker');
+            const backToMainFromHR = document.getElementById('backToMainFromHR');
+            const backToQuestionnaire = document.getElementById('backToQuestionnaire');
+            const backToUpload = document.getElementById('backToUpload');
+            const newSearch = document.getElementById('newSearch');
+            
+            let userType = null;
+            let currentFile = null;
+            let userAnswers = {};
+            
+            // Обработчики кнопок выбора типа пользователя
+            jobSeekerBtn.addEventListener('click', function() {
+                userType = 'jobSeeker';
+                document.querySelector('.hero').style.display = 'none';
+                jobSeekerQuestionnaire.style.display = 'block';
+            });
+            
+            hrBtn.addEventListener('click', function() {
+                userType = 'hr';
+                document.querySelector('.hero').style.display = 'none';
+                hrQuestionnaire.style.display = 'block';
+            });
+            
+            // Обработчики кнопок "Назад"
+            backToMainFromJobSeeker.addEventListener('click', function() {
+                jobSeekerQuestionnaire.style.display = 'none';
+                document.querySelector('.hero').style.display = 'block';
+            });
+            
+            backToMainFromHR.addEventListener('click', function() {
+                hrQuestionnaire.style.display = 'none';
+                document.querySelector('.hero').style.display = 'block';
+            });
+            
+            backToQuestionnaire.addEventListener('click', function() {
+                uploadSection.style.display = 'none';
+                if (userType === 'jobSeeker') {
+                    jobSeekerQuestionnaire.style.display = 'block';
+                } else {
+                    hrQuestionnaire.style.display = 'block';
+                }
+            });
+            
+            backToUpload.addEventListener('click', function() {
+                resultsSection.style.display = 'none';
+                uploadSection.style.display = 'block';
+            });
+            
+            newSearch.addEventListener('click', function() {
+                resultsSection.style.display = 'none';
+                document.querySelector('.hero').style.display = 'block';
+                
+                // Сброс форм
+                jobSeekerForm.reset();
+                hrForm.reset();
+                resetOptions();
+                fileInfo.classList.remove('show');
+                analyzeBtn.style.display = 'none';
+                resultsGrid.innerHTML = '';
+                recommendationsList.innerHTML = '';
+            });
+            
+            // Обработчики выбора опций
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const parent = this.parentElement;
+                    const hiddenInput = parent.nextElementSibling;
+                    
+                    // Снять выделение с других опций
+                    parent.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Выделить выбранную опцию
+                    this.classList.add('selected');
+                    
+                    // Установить значение скрытого поля
+                    hiddenInput.value = this.getAttribute('data-value');
+                });
+            });
+            
+            // Обработчики отправки форм
+            jobSeekerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Сбор данных формы
+                userAnswers = {
+                    desiredSalary: document.getElementById('desiredSalary').value,
+                    relocation: document.getElementById('relocation').value,
+                    workFormat: document.getElementById('workFormat').value,
+                    workSchedule: document.getElementById('workSchedule').value
+                };
+                
+                // Переход к загрузке файла
+                jobSeekerQuestionnaire.style.display = 'none';
+                uploadSection.style.display = 'block';
+                uploadTitle.textContent = 'Загрузите ваше резюме';
+                analyzeBtn.textContent = 'Найти подходящие компании';
+            });
+            
+            hrForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Сбор данных формы
+                userAnswers = {
+                    offeredSalary: document.getElementById('offeredSalary').value,
+                    candidateRelocation: document.getElementById('candidateRelocation').value,
+                    offeredWorkFormat: document.getElementById('offeredWorkFormat').value,
+                    offeredWorkSchedule: document.getElementById('offeredWorkSchedule').value
+                };
+                
+                // Переход к загрузке файла
+                hrQuestionnaire.style.display = 'none';
+                uploadSection.style.display = 'block';
+                uploadTitle.textContent = 'Загрузите описание вакансии';
+                analyzeBtn.textContent = 'Найти подходящих кандидатов';
+            });
+            
+            // Обработчики загрузки файла
+            selectFileBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleFileSelect(e.target.files[0]);
+                }
+            });
+            
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.classList.add('active');
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.classList.remove('active');
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.classList.remove('active');
+                
+                if (e.dataTransfer.files.length > 0) {
+                    handleFileSelect(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // Обработчик анализа файла
+            analyzeBtn.addEventListener('click', function() {
+                if (currentFile) {
+                    // Имитация загрузки и анализа
+                    simulateAnalysis();
+                }
+            });
+            
+            function handleFileSelect(file) {
+                currentFile = file;
+                
+                // Показать информацию о файле
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileType.textContent = getFileType(file.name);
+                
+                // Показать область информации о файле
+                fileInfo.classList.add('show');
+                
+                // Показать кнопку анализа
+                analyzeBtn.style.display = 'block';
+                
+                // Имитация загрузки файла
+                simulateUpload();
+            }
+            
+            function simulateUpload() {
+                let progress = 0;
+                const interval = setInterval(function() {
+                    progress += 5;
+                    uploadProgress.style.width = progress + '%';
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                    }
+                }, 100);
+            }
+            
+            function simulateAnalysis() {
+                // Скрыть секцию загрузки и показать результаты
+                uploadSection.style.display = 'none';
+                resultsSection.style.display = 'block';
+                
+                // Установить процент совпадения
+                const percentage = Math.floor(Math.random() * 40) + 60; // От 60% до 99%
+                matchPercentage.textContent = percentage + '%';
+                
+                if (userType === 'jobSeeker') {
+                    matchText.textContent = 'Совпадение с вашими навыками и опытом';
+                    showJobResults(percentage);
+                    showJobSeekerRecommendations(percentage);
+                } else {
+                    matchText.textContent = 'Совпадение с требованиями вакансии';
+                    showCandidateResults(percentage);
+                    showHRRecommendations(percentage);
+                }
+            }
+            
+            function showJobResults(percentage) {
+                resultsGrid.innerHTML = '';
+                
+                const jobs = [
+                    {
+                        title: 'Frontend Developer',
+                        company: 'ТехноЛаб',
+                        location: 'Москва',
+                        salary: 'от 150 000 руб.',
+                        match: percentage,
+                        description: 'Разработка пользовательских интерфейсов для веб-приложений с использованием React, TypeScript и современных инструментов разработки.'
+                    },
+                    {
+                        title: 'Веб-разработчик',
+                        company: 'ДигиталСтудио',
+                        location: 'Санкт-Петербург',
+                        salary: 'от 130 000 руб.',
+                        match: percentage - 10,
+                        description: 'Создание и поддержка веб-сайтов и приложений. Работа с HTML, CSS, JavaScript и фреймворками.'
+                    },
+                    {
+                        title: 'JavaScript Developer',
+                        company: 'ИнноваСофт',
+                        location: 'Новосибирск',
+                        salary: 'от 140 000 руб.',
+                        match: percentage - 15,
+                        description: 'Разработка клиентской и серверной части приложений на JavaScript. Опыт работы с Node.js и базами данных.'
+                    }
+                ];
+                
+                jobs.forEach(job => {
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    card.innerHTML = `
+                        <h3>${job.title}</h3>
+                        <p><strong>Компания:</strong> ${job.company}</p>
+                        <p><strong>Локация:</strong> ${job.location}</p>
+                        <p><strong>Зарплата:</strong> ${job.salary}</p>
+                        <p>${job.description}</p>
+                        <div class="match-badge">${job.match}% совпадение</div>
+                    `;
+                    resultsGrid.appendChild(card);
+                });
+            }
+            
+            function showCandidateResults(percentage) {
+                resultsGrid.innerHTML = '';
+                
+                const candidates = [
+                    {
+                        name: 'Анна Петрова',
+                        position: 'Senior Frontend Developer',
+                        experience: '5 лет',
+                        skills: 'React, TypeScript, Redux, HTML/CSS',
+                        location: 'Москва',
+                        match: percentage,
+                        description: 'Опытный разработчик с глубокими знаниями современных фронтенд-технологий. Участвовала в создании крупных веб-приложений.'
+                    },
+                    {
+                        name: 'Иван Сидоров',
+                        position: 'Fullstack Developer',
+                        experience: '4 года',
+                        skills: 'JavaScript, Node.js, React, MongoDB',
+                        location: 'Санкт-Петербург',
+                        match: percentage - 8,
+                        description: 'Универсальный разработчик с опытом работы как на клиентской, так и на серверной стороне. Знание полного цикла разработки.'
+                    },
+                    {
+                        name: 'Мария Козлова',
+                        position: 'React Developer',
+                        experience: '3 года',
+                        skills: 'React, Redux, JavaScript, CSS-in-JS',
+                        location: 'Казань',
+                        match: percentage - 12,
+                        description: 'Специализируется на разработке пользовательских интерфейсов с использованием React. Имеет опыт создания адаптивных и доступных интерфейсов.'
+                    }
+                ];
+                
+                candidates.forEach(candidate => {
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    card.innerHTML = `
+                        <h3>${candidate.name}</h3>
+                        <p><strong>Позиция:</strong> ${candidate.position}</p>
+                        <p><strong>Опыт:</strong> ${candidate.experience}</p>
+                        <p><strong>Навыки:</strong> ${candidate.skills}</p>
+                        <p><strong>Локация:</strong> ${candidate.location}</p>
+                        <p>${candidate.description}</p>
+                        <div class="match-badge">${candidate.match}% совпадение</div>
+                    `;
+                    resultsGrid.appendChild(card);
+                });
+            }
+            
+            function showJobSeekerRecommendations(percentage) {
+                recommendationsList.innerHTML = '';
+                
+                const recommendations = [
+                    'Добавьте больше информации о ваших проектах и достижениях',
+                    'Укажите конкретные технологии и инструменты, которыми владеете',
+                    'Опишите ваш опыт работы более детально',
+                    'Добавьте информацию о пройденных курсах и сертификатах',
+                    'Укажите уровень владения иностранными языками'
+                ];
+                
+                recommendations.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.textContent = rec;
+                    recommendationsList.appendChild(li);
+                });
+                
+                // Добавляем причины возможных отказов для низких процентов
+                if (percentage < 70) {
+                    const rejectionReasons = document.createElement('li');
+                    rejectionReasons.textContent = 'Возможные причины отказа: недостаточный опыт работы с требуемыми технологиями';
+                    recommendationsList.appendChild(rejectionReasons);
+                }
+            }
+            
+            function showHRRecommendations(percentage) {
+                recommendationsList.innerHTML = '';
+                
+                const recommendations = [
+                    'Рассмотрите возможность увеличения предлагаемой зарплаты',
+                    'Предложите гибкий график работы для привлечения большего числа кандидатов',
+                    'Расширьте географию поиска кандидатов',
+                    'Уточните требования к кандидатам в описании вакансии',
+                    'Рассмотрите кандидатов со смежными навыками'
+                ];
+                
+                recommendations.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.textContent = rec;
+                    recommendationsList.appendChild(li);
+                });
+                
+                // Добавляем причины возможных отказов для низких процентов
+                if (percentage < 70) {
+                    const rejectionReasons = document.createElement('li');
+                    rejectionReasons.textContent = 'Возможные причины отказа кандидатов: несоответствие ожиданий по зарплате или формату работы';
+                    recommendationsList.appendChild(rejectionReasons);
+                }
+            }
+            
+            function resetOptions() {
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                document.querySelectorAll('input[type="hidden"]').forEach(input => {
+                    input.value = '';
+                });
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            function getFileType(filename) {
+                const ext = filename.split('.').pop().toLowerCase();
+                const types = {
+                    'pdf': 'PDF Document',
+                    'docx': 'Word Document',
+                    'doc': 'Word Document',
+                    'txt': 'Text File'
+                };
+                return types[ext] || 'Unknown File Type';
+            }
+        });
+    </script>
+</body>
+</html>
